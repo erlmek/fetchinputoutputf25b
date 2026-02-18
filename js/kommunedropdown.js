@@ -13,16 +13,25 @@ function fillDropDown(kom) {
     ddKommune.appendChild(el);
 }
 
+const kommuneMap = new Map(); //er min lokale kommune database. key er pk som er kommune.kode
+
+function findes(komKode) {
+    const bFindes = kommuneMap.has(komKode)
+    return bFindes
+}
+
 function addATag() {
+    const komKode = ddKommune.value;
+    const kom = ddKommune.options[ddKommune.selectedIndex].kommune;
+    if (kom.findes) return;
 
-    if (findes) return;
-
-
+    //if (findes()) return;
+    //kommuneMap.set(ddKommune.value, ddKommune.options[ddKommune.selectedIndex].kommune)
     const el = document.createElement("a");
     //const val = ddKommune.value;
     //el.textContent = val;
     //el.href = "kommune.html";
-    const kom = ddKommune.options[ddKommune.selectedIndex].kommune;
+    kom.findes = true;
     el.textContent = kom.navn
     el.href = kom.href
     divKommune.appendChild(el);
