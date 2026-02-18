@@ -12,7 +12,8 @@ function fetchAnyUrlText(url) {
 
 function getKeysAndValuesFromObj(obj) {
     const keys = Object.keys(obj)
-    return keys.map(key => `${key} : ${obj[key]}`)}
+    return keys.map(key => `${key} : ${obj[key]}`)
+}
 
 async function actionFetchUrl(btn) {
     const url = inpUrl.value
