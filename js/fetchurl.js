@@ -5,14 +5,30 @@ function fetchAnyUrl(url) {
     return  fetch(url).then(response => response.json());
 }
 
-async function actionFetchUrl(btn) {
-    const url = inpUrl.value;
-    console.log(url)
-    const jsonOutput = await fetchAnyUrl(url)
-    textArea.textContent = jsonOutput
-    console.log(jsonOutput)
+function fetchAnyUrlText(url) {
+    console.log("inside fetch text url=" + url)
+    return  fetch(url).then(response => response.text());
 }
 
+function getKeysAndValuesFromObj(obj) {
+    const keys = Object.keys(obj)
+    return keys.map(key => `${key} : ${obj[key]}`)}
+
+async function actionFetchUrl(btn) {
+    const url = inpUrl.value
+    console.log(url)
+    const jsonOutput = await fetchAnyUrl(url)
+    //Her har vi json som kan være både array eller et enkelt object.
+    //Vi starter med at teste om det er et array.
+    let showTxt = ""
+    if (Array.isArray(jsonOutput)) {
+        showTxt = getKeysAndValuesFromObj(jsonOutput[0])
+    } else {
+        showTxt = getKeysAndValuesFromObj(jsonOutput)
+    }
+    textArea.textContent = showTxt
+    console.log(jsonOutput)
+}
 
 const inpUrl = document.getElementById("inpUrl")
 const textArea = document.getElementById("txt")
